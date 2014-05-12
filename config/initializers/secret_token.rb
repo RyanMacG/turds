@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Turd::Application.config.secret_key_base = '7162067741acd9f7f4c7444816da838fe81abef25cab83d974e11af8f1b22a744a836316fe216be0ce3d0e06e5eb96970f56d6bdce4c1605a27f4b204869935d'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use existing token
+    File.read(token_file).chomp
+  else
+    # Generate token
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Turd::Application.config.secret_key_base = secure_token
