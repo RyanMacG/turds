@@ -19,6 +19,8 @@ gem 'oj'
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
+  gem 'rspec-rails', '2.13.1'
+  gem 'shoulda-matchers'
 end
 
 group :doc do
